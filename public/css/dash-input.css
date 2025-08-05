@@ -1,0 +1,39 @@
+.input-place{
+    margin-top:20px;
+    padding: 20px;
+    padding-bottom: 55px;
+}
+
+.input-bar{
+    display: grid;
+    grid-template-columns: 200px 20px auto;
+    gap: 10px;
+    height: 2rem;
+    margin-bottom: 20px;
+}
+
+.input-bar input{
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 5px;
+    padding: 10px;
+    height: 40px;
+}
+
+.input-place .btn-submit{
+    background-color: #00C9C6;
+    padding: 10px;
+    border-radius: 20px;
+    color: white;
+    width: 100px;
+    cursor: pointer;
+    float: inline-end;
+}
+
+.input-place .input-dropdown{
+    width: 40vw;
+    background-color: #00C9C6;
+    position: absolute;
+    right: 25.5%;
+    text-align: right;
+}

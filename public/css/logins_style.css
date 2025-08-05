@@ -1,0 +1,211 @@
+body {
+  height:100vh;
+  font-family: "Montserrat", sans-serif;
+}
+
+.main-content {
+  width: 600px;
+  height: 550px;
+  background: #202020;
+  border: 1px solid rgba(255, 255, 255, 0.66);
+  border-radius: 1.25rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  color: #fff;
+  padding: 2.5rem;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  text-align: center;
+}
+
+.left-panel {
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+  width: 60vw
+}
+
+h6.title {margin-bottom: 0 !important;}
+
+.right-panel {
+  width: 40vw;
+}
+
+.right-panel h1 {
+  font-weight: 600;
+}
+
+.right-panel input[type="email"],
+.right-panel input[type="password"] {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  margin: 0.5rem 0;
+  border-radius: 8px;
+  border: 1px solid #202020;
+  background: transparent;
+  color: #202020;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.right-panel input::placeholder {
+  color: #202020;
+}
+
+.submit-btn {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background-color: #f95454;
+  border: none;
+  color: white;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #f73636ff;
+  color: white;
+  text-decoration: none;
+}
+
+.alert-danger {
+  margin-top: 1rem;
+  background: rgba(255, 0, 0, 0.15);
+  padding: 0.75rem;
+  border-radius: 8px;
+  color: white;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active {
+  -webkit-box-shadow: none !important;
+  -webkit-text-fill-color: dark !important;
+  background: transparent !important;
+  transition: background-color 9999s ease-out !important;
+}
+
+@media (max-width: 427px) {
+  body {
+    display: flex !important;
+    position: absolute;
+    flex-direction: column !important;
+    overflow: hidden !important;
+  }
+
+  .left-panel {
+    display: flex !important;
+    width: 100vw !important;
+    height: 100vh !important; 
+    border-radius: 0;
+    margin: 0 !important;
+    position: absolute;
+    justify-content: space-between !important;
+    background-position: center !important;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .right-panel {
+    position: absolute;
+    width: 80vw !important;
+    height: 75vh !important;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 30px !important;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: flex-start !important;
+    margin-top: 25px !important;
+    padding: 1.5rem !important;
+    background: #f9f9f9;
+    height: max-content;
+    width: 100%;
+    
+    .Header {
+      margin: 0px 0px 15px 0px !important;
+    }
+  }
+
+  .logo-header {
+    position: fixed !important;
+    bottom: -33px !important;
+    top: unset !important;
+    left: unset !important;
+
+    img.logo {width: 27px !important; padding: 0.1rem;}
+
+    h6 {
+      color: white !important;
+      font-size: 10px !important;
+    }
+  }
+
+  .right-panel h1 {
+    font-weight: 600;
+    font-size: 24px;
+  }
+
+  .right-panel p {
+    font-size: 14px;
+  }
+
+  .right-panel input[type="email"],
+  .right-panel input[type="password"] {
+    width: 70%;
+    height: 30px !important;
+    padding: 0.75rem 1rem;
+    margin: 0.5rem 0;
+    border-radius: 8px;
+    border: 1px solid #202020;
+    background: transparent;
+    color: #202020;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+
+  .right-panel input::placeholder {
+    color: #202020;
+    font-size: 12px;
+  }
+
+  .login-btn {
+    font-size: 10px !important;
+  }
+
+  .submit-login-btn {
+    margin-top: 25px !important;
+  }
+  
+  .bps {
+    width: 100px !important;
+  }
+
+  .submit-btn {
+    width: 70%;
+    height: 30px !important;
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    background-color: #f95454;
+    border: none;
+    font-size: 12px !important;
+    color: white;
+    font-weight: 500;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.3s ease;
+  }
+
+  .submit-btn:hover {
+    background-color: #f73636ff;
+    color: white;
+    text-decoration: none;
+  }
+
+
+}

@@ -1,0 +1,48 @@
+.theme-toggle-btn {
+  background-color: transparent;
+  height: 25px;
+  width: 50px;
+  border: 1.5px solid aliceblue;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  padding: 0px;
+  margin: 7px 0px 0px 7px;
+}
+
+.theme-toggle-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.theme-icon {
+  border-radius: 8px;
+  width: 25px;
+  height: 25px;
+  background-color: aliceblue;
+  transition: transform 0.3s ease;
+
+  i { font-size: 1rem;}
+}
+
+body.theme-dark .theme-toggle-btn {
+    border-color: #eee;
+}
+
+body.theme-dark .theme-icon {
+  transform: translateX(25px);
+}
+
+body.theme-dark .theme-toggle-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+body.theme-dark .Main-nav {
+    background: rgba(107, 45, 240, 0.365);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.432);
+    z-index: 99;
+}

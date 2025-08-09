@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\DB;
 
 class RapatUndanganInternal extends Model
 {
@@ -24,24 +24,12 @@ class RapatUndanganInternal extends Model
         'asal' => 'integer',
     ];
 
-    public function rapat(): BelongsTo
+    public function getPesertaAttribute()
     {
-        return $this->belongsTo(Rapat::class, 'rapat_id');
+        if ($this->asal === 2) {
+            return DB::table('pegawai')->where('id', $this->id_pegawai)->first();
+        } else {
+            return DB::table('dls_tamu')->where('id', $this->id_tamu)->first();
+        }
     }
-
-    public function pegawai(): BelongsTo
-    {
-        return $this->belongsTo(Pegawai::class, 'id_pegawai');
-    }
-
-    public function tamu(): BelongsTo
-    {
-        return $this->belongsTo(DlsTamu::class, 'id_tamu');
-    }
-
-        public function getPesertaAttribute()
-    {
-        return $this->asal === 2 ? $this->pegawai : $this->tamu;
-    }
-
 }

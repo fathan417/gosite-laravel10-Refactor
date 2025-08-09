@@ -4,8 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\User;
-use App\Models\RapatUndanganInternal;
 
 class Pegawai extends Model
 {
@@ -22,16 +20,6 @@ class Pegawai extends Model
     ];
 
     protected $dates = ['tgl_lahir', 'tmt_cpns', 'tmt_pns'];
-
-    public function user()
-    {
-        return $this->hasOne(User::class, 'pegawai_id', 'id');
-    }
-
-    public function undangan()
-    {
-        return $this->hasMany(RapatUndanganInternal::class, 'id_pegawai', 'id');
-    }
 
     public function getNamaLengkapAttribute()
     {

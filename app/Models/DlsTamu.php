@@ -25,14 +25,4 @@ class DlsTamu extends Model
         'bcemail' => 'boolean',
         'satker_id' => 'integer',
     ];
-
-    public function satker()
-    {
-        return $this->belongsTo(Satker::class, 'satker_id');
-    }
-
-    public function undangan()
-    {
-        return $this->hasMany(RapatUndanganInternal::class, 'id_tamu', 'id');
-    }
 }

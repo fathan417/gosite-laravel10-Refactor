@@ -20,21 +20,4 @@ class Presensi extends Model
         'signature',
     ];
 
-    // Relasi ke Event
-    public function event()
-    {
-        return $this->belongsTo(Event::class);
-    }
-
-    // Relasi ke Province (opsional)
-    public function province()
-    {
-        return $this->belongsTo(Province::class, 'province_id', 'id');
-    }
-
-    // Relasi ke Regency (opsional)
-    public function regency()
-    {
-        return $this->belongsTo(Regency::class, 'regency_id', 'id');
-    }
 }

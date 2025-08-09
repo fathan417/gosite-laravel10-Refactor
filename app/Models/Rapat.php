@@ -41,33 +41,6 @@ class Rapat extends Model
         });
     }
 
-    public function jenis(): BelongsToMany
-    {
-        return $this->belongsToMany(Jenis::class, 'jenis_rapat', 'rapat_id', 'jenis_id');
-    }
-
-    public function undangan(): HasMany
-    {
-        return $this->hasMany(RapatUndanganInternal::class, 'rapat_id');
-    }
-
-    public function contents(): HasMany
-    {
-        return $this->hasMany(EventSiteContent::class, 'rapat_id');
-    }
-
-    public function undanganPegawai(): HasMany
-    {
-        return $this->hasMany(RapatUndanganInternal::class, 'rapat_id')
-                    ->where('asal', 2);
-    }
-
-    public function undanganTamu(): HasMany
-    {
-        return $this->hasMany(RapatUndanganInternal::class, 'rapat_id')
-                    ->where('asal', 1);
-    }
-
 
     public function getTahunAttribute(): string
     {

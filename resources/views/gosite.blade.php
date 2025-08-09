@@ -134,13 +134,13 @@
       
                 <div class="col-md-7 offset-md-5 modalWrap p-3 d-flex flex-column">
                   @foreach ([
-                    'Nama' => $profil->nama,
-                    'Email' => $profil->email,
-                    'Asal Instansi' => $profil->instansi,
-                    'Pekerjaan' => $profil->pekerjaan,
-                    'Jenis Kelamin' => $profil->jk,
-                    'Nomor Telepon' => $profil->nohp,
-                    'Alamat' => $profil->alamat
+                    'Nama' => $profil[0]->nama,
+                    'Email' => $profil[0]->email,
+                    'Asal Instansi' => $profil[0]->instansi,
+                    'Pekerjaan' => $profil[0]->pekerjaan,
+                    'Jenis Kelamin' => $profil[0]->jk,
+                    'Nomor Telepon' => $profil[0]->nohp,
+                    'Alamat' => $profil[0]->alamat
                   ] as $label => $value)
                     <div class="d-flex justify-content-between small">
                       <span class="text-light">{{ $value ?: '-' }}</span>

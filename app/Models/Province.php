@@ -10,9 +10,5 @@ class Province extends Model
     protected $table = 'provinces';
 
     public $timestamps = false;
-    public function regencies()
-    {
-        return $this->hasMany(Regency::class);
-    }
 
 }

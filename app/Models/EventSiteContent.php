@@ -21,11 +21,6 @@ class EventSiteContent extends Model
         'rapat_id' => 'integer',
     ];
 
-    public function rapat(): BelongsTo
-    {
-        return $this->belongsTo(Rapat::class, 'rapat_id');
-    }
-
     public function getLinkstatAttribute(): string
     {
         $default = 'hide';

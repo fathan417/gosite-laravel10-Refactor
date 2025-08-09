@@ -12,9 +12,4 @@ class Jenis extends Model
     protected $fillable = [
         'nama',
     ];
-
-    public function rapat(): BelongsToMany
-    {
-        return $this->belongsToMany(Rapat::class, 'jenis_rapat', 'jenis_id', 'rapat_id');
-    }
 }

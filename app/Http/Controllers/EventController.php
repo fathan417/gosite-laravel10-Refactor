@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Rapat;
 use App\Models\Pegawai;
-use App\Models\EventSiteContent;
-use App\Models\RapatUndanganInternal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use App\Services\UserInfoService;
 
@@ -16,7 +12,9 @@ class EventController extends Controller
 {
     public function index()
     {
-        $rapat = Rapat::select('id', 'judul', 'waktu_mulai', 'waktu_selesai', 'tempat', 'created_by')
+        // Ambil event berdasarkan created_by (hardcode 15, bisa sesuaikan)
+        $rapat = DB::table('rapat')
+            ->select('id', 'judul', 'waktu_mulai', 'waktu_selesai', 'tempat', 'created_by')
             ->where('created_by', 15)
             ->get();
 
@@ -28,7 +26,8 @@ class EventController extends Controller
 
     public function addEvent()
     {
-        $pegawai = Pegawai::select('id', 'nama')->get();
+        // Ambil data pegawai untuk opsi penanggung jawab
+        $pegawai = DB::table('pegawai')->select('id', 'nama')->get();
 
         return view('dash_events.add', [
             'sidebar' => 'Event',
@@ -52,7 +51,8 @@ class EventController extends Controller
             $path = $request->file('kak')->store('files/kak');
         }
 
-        Rapat::create([
+        // Insert data rapat manual dengan query builder
+        DB::table('rapat')->insert([
             'judul' => $validated['namakeg'],
             'pj_id' => $validated['namaket'],
             'waktu_mulai' => $validated['tgl_mulai'],
@@ -60,6 +60,8 @@ class EventController extends Controller
             'tempat' => $validated['tempat'],
             'kak' => $path,
             'created_by' => Auth::id(),
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         return redirect()->route('event.index')->with('success', 'Event berhasil ditambahkan.');
@@ -73,26 +75,55 @@ class EventController extends Controller
 
         $email = Auth::user()->email;
         $profil = $userInfoService->getInfo($email);
+        $asal = $profil->asal;
+        $idUser = $profil->id;
 
-        $rapat = Rapat::with(['jenis', 'undangan', 'contents'])
-            ->findOrFail($id);
-
-       
-        $undangan = RapatUndanganInternal::query()
-            ->where('rapat_id', $rapat->id)
-            ->where('asal', $profil->asal)
-            ->where($profil->asal == '2' ? 'id_pegawai' : 'id_tamu', $profil->id)
+        // Ambil data rapat
+        $rapat = DB::table('rapat')
+            ->where('id', $id)
             ->first();
 
+        if (!$rapat) {
+            abort(404, 'Event tidak ditemukan');
+        }
+
+        // Ambil data undangan sesuai profil user
+        $undanganQuery = DB::table('rapat_undangan_internal')
+            ->where('rapat_id', $id)
+            ->where('asal', $asal);
+
+        if ($asal == '2') {
+            $undanganQuery->where('id_pegawai', $idUser);
+        } else {
+            $undanganQuery->where('id_tamu', $idUser);
+        }
+
+        $undangan = $undanganQuery->first();
+
+        // Role user dalam rapat (default 0 jika tidak ada undangan)
         $rapat->role = $undangan?->role ?? 0;
 
-        
-        $rapat->contents->each(function ($c) {
-            $c->linkstat = 'show';
-        });
+        // Ambil konten rapat
+        $contents = DB::table('event_site_contents')
+            ->where('rapat_id', $id)
+            ->get();
 
+        // Tandai setiap content dengan linkstat = 'show'
+        foreach ($contents as $content) {
+            $content->linkstat = 'show';
+        }
 
-        $rapat->jenis_nama = $rapat->jenis->pluck('nama')->toArray();
+        // Ambil jenis rapat (bisa lebih dari satu)
+        $jenis = DB::table('jenis_rapat')
+            ->join('jenis', 'jenis_rapat.jenis_id', '=', 'jenis.id')
+            ->where('jenis_rapat.rapat_id', $id)
+            ->select('jenis.nama')
+            ->pluck('nama')
+            ->toArray();
+
+        // Inject data tambahan ke objek rapat
+        $rapat->contents = $contents;
+        $rapat->jenis_nama = $jenis;
         $rapat->tahun = date('Y', strtotime($rapat->waktu_mulai));
         $rapat->bulan = date('m', strtotime($rapat->waktu_mulai));
 
